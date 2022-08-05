@@ -10,6 +10,7 @@ class Survivor(models.Model):
     name = models.CharField(max_length=120)
     age = models.IntegerField()
     sex = models.CharField(max_length=1, choices=SEX_CHOICES)
+    is_infected = models.BooleanField(default=False)
     latitude = models.DecimalField(
         max_digits=5, 
         decimal_places=3,
@@ -37,3 +38,11 @@ class Inventory(models.Model):
     medication = models.IntegerField(default=0)
     ammunition = models.IntegerField(default=0)
 
+
+class InfectedReport(models.Model):
+    informant = models.ForeignKey(Survivor, on_delete=models.CASCADE, related_name='reports')
+    infected = models.ForeignKey(Survivor, on_delete=models.CASCADE, related_name='reported')
+    date_report = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('informant', 'infected')
