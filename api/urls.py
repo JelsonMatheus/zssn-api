@@ -5,8 +5,8 @@ from api import views
 
 
 router = routers.DefaultRouter()
-router.register('survivor', views.SurvivorList, 'suvivor')
-router.register('infected-report', views.ReportInfectedView, 'infected-report')
+router.register('survivors', views.SurvivorList, 'suvivors')
+router.register('infected-reports', views.ReportInfectedView, 'infected-reports')
 
 urlpatterns = [
     path('', include(router.urls)),
