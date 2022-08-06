@@ -2,14 +2,14 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Survivor(models.Model):
-    SEX_CHOICES = (
+    GENDER_CHOICES = (
         ("F", "Feminine"),
         ("M", "Masculine")
     )
 
     name = models.CharField(max_length=120)
     age = models.IntegerField()
-    sex = models.CharField(max_length=1, choices=SEX_CHOICES)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     is_infected = models.BooleanField(default=False)
     latitude = models.DecimalField(
         max_digits=5, 
@@ -27,16 +27,29 @@ class Survivor(models.Model):
 
 
 class Inventory(models.Model):
-    WATER_VALUE = 4
-    FOOD_VALUE = 3
-    MEDICATION = 2
-    AMMUNITION = 1
+    class ItemValue(models.IntegerChoices):
+        WATER = 4,
+        FOOD = 3
+        MEDICATION = 2
+        AMMUNITION = 1
 
     survivor = models.OneToOneField(Survivor, on_delete=models.CASCADE, primary_key=True)
     water = models.IntegerField(default=0)
     food = models.IntegerField(default=0)
     medication = models.IntegerField(default=0)
     ammunition = models.IntegerField(default=0)
+
+    def get_full_value_item(self, name):
+        unit_value = getattr(self.ItemValue, name.upper())
+        return getattr(self, name) * unit_value
+
+    @property
+    def total_resource_value(self):
+        item_names = ('water', 'food', 'medication', 'ammunition')
+        value = 0
+        for name in item_names:
+            value += self.get_full_value_item(name)
+        return value
 
 
 class InfectedReport(models.Model):

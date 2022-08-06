@@ -10,5 +10,5 @@ router.register('infected-report', views.ReportInfectedView, 'infected-report')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('trades/', views.TradeView.as_view(), name='trade'),
 ]
-
