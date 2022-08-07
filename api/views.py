@@ -86,7 +86,7 @@ class InfectedReportsView(views.APIView):
         value = query['infected'] / query['total']
         data = {
             'infected': query['infected'],
-            'percentage': "{:.2%}".format(value)
+            'percentage': value * 100
         }
         return Response(data)
 
@@ -103,7 +103,7 @@ class UninfectedReportsView(views.APIView):
         value = query['uninfected'] / query['total']
         data = {
             'uninfected': query['uninfected'],
-            'percentage': "{:.2%}".format(value)
+            'percentage': value * 100
         }
         return Response(data)
 
