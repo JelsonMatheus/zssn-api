@@ -10,7 +10,7 @@ class InventorySerializer(serializers.ModelSerializer):
         fields = ('water', 'food', 'medication', 'ammunition')
 
 
-class SurvivorSerializer(serializers.ModelSerializer):
+class CreateSurvivorSerializer(serializers.ModelSerializer):
     inventory = InventorySerializer()
 
     class Meta:
@@ -23,6 +23,11 @@ class SurvivorSerializer(serializers.ModelSerializer):
         survivor = Survivor.objects.create(**validated_data)
         inventory = Inventory.objects.create(survivor=survivor, **inventory_data)
         return survivor
+
+class SurvivorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Survivor
+        fields = ('name', 'age', 'gender', 'is_infected', 'latitude', 'longitude')
 
 class UpdateSurvivorSerializer(serializers.ModelSerializer):
     class Meta:

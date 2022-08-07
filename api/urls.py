@@ -1,4 +1,4 @@
-from django.urls import path, include, register_converter
+from django.urls import path, include
 from rest_framework import routers
 
 from api import views
@@ -17,6 +17,7 @@ urlreports = [
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('survivors/<int:pk>/inventory/', views.InventoryRetrieve.as_view({'get': 'retrieve'}), name='items'),
     path('trades/', views.TradeView.as_view(), name='trade'),
     path('reports/', include(urlreports)),
 ]

@@ -1,13 +1,24 @@
+from operator import truediv
 from django import views
 from django.utils.translation import gettext_lazy as _
 from django.db.models import Count, Sum, Q
 from rest_framework import viewsets, mixins, views
 from rest_framework.response import Response
+from rest_framework import permissions
 
 from api.models import InfectedReport, Survivor, Inventory
 from api.serializers import (
-    InfectedReportSerializer, SurvivorSerializer, TradeSerializer, UpdateSurvivorSerializer
+    InfectedReportSerializer, InventorySerializer, SurvivorSerializer, 
+    TradeSerializer, UpdateSurvivorSerializer,
+    CreateSurvivorSerializer
 )
+
+
+class IsNotInfected(permissions.BasePermission):
+    message = "Survivor cannot access your inventory. She is infected." 
+
+    def has_object_permission(self, request, view, obj):
+        return not obj.survivor.is_infected
 
 
 class SurvivorList(viewsets.ModelViewSet):
@@ -18,8 +29,19 @@ class SurvivorList(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action in ('update', 'partial_update'):
             return UpdateSurvivorSerializer
+        elif self.action == 'create':
+            return CreateSurvivorSerializer
         return self.serializer_class
 
+
+class InventoryRetrieve(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
+    queryset = Inventory.objects.all()
+    serializer_class = InventorySerializer
+    permission_classes = (IsNotInfected,)
+    authentication_classes = ()
+
+    def get_object(self):
+        return super().get_object()
 
 class ReportInfectedView(viewsets.GenericViewSet, mixins.CreateModelMixin):
     queryset = InfectedReport.objects.all()
