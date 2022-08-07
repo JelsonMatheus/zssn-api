@@ -15,6 +15,9 @@ from api.serializers import (
 
 
 class IsNotInfected(permissions.BasePermission):
+    """ 
+    Allows only uninfected survivors to access items. 
+    """
     message = "Survivor cannot access your inventory. She is infected." 
 
     def has_object_permission(self, request, view, obj):
@@ -22,6 +25,9 @@ class IsNotInfected(permissions.BasePermission):
 
 
 class SurvivorList(viewsets.ModelViewSet):
+    """
+    Lists all infected survivors e uninfected, Retrieve or creates um survivor.
+    """
     queryset = Survivor.objects.all()
     serializer_class = SurvivorSerializer
     filter_backends = (filters.DjangoFilterBackend,)
@@ -37,6 +43,9 @@ class SurvivorList(viewsets.ModelViewSet):
 
 
 class InventoryRetrieve(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
+    """
+    Retrieves an inventory on one survivor not infected.
+    """
     queryset = Inventory.objects.all()
     serializer_class = InventorySerializer
     permission_classes = (IsNotInfected,)
@@ -46,12 +55,17 @@ class InventoryRetrieve(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
         return super().get_object()
 
 class ReportInfectedView(viewsets.GenericViewSet, mixins.CreateModelMixin):
+    """
+    Informs on one infected survivor.
+    """
     queryset = InfectedReport.objects.all()
     serializer_class = InfectedReportSerializer
 
 
 class TradeView(views.APIView):
-    
+    """
+    Performs an item trade between two uninfected survivors.
+    """
     def post(self, request, *args, **kwargs):
         data = request.data
         serializer = TradeSerializer(data=data)
@@ -61,6 +75,9 @@ class TradeView(views.APIView):
 
 
 class InfectedReportsView(views.APIView):
+    """
+    Reports the total number and percentage of infections.
+    """
     queryset = Survivor.objects.all()
 
     def get(self, request, *args, **kwargs):
@@ -75,6 +92,9 @@ class InfectedReportsView(views.APIView):
 
 
 class UninfectedReportsView(views.APIView):
+    """
+    Reports the total number and percentage of uninfected.
+    """
     queryset = Survivor.objects.all()
 
     def get(self, request, *args, **kwargs):
@@ -88,6 +108,9 @@ class UninfectedReportsView(views.APIView):
         return Response(data)
 
 class AverageResourcesView(views.APIView):
+    """
+    Reports the average number of resources per uninfected survivor.
+    """
     queryset = Inventory.objects.all()
 
     def get_queryset(self, *args, **kwargs):
@@ -108,6 +131,9 @@ class AverageResourcesView(views.APIView):
 
 
 class LostPointsView(views.APIView):
+    """
+    Reports the number of points lost per infected survivor.
+    """
     queryset = Inventory.objects.all()
 
     def get_queryset(self, *args, **kwargs):
