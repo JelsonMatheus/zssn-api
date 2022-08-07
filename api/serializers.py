@@ -84,6 +84,10 @@ class TradeSerializer(serializers.Serializer):
         sends = attrs.get('sends')
         pickup = attrs.get('pickup')
 
+        if survivor_seller.pk == survivor_buyer.pk:
+            msg = _("The 'survivor_seller' cannot be the same as the 'survivor_buyer'.")
+            raise serializers.ValidationError(msg)
+
         self._validate_survivor_items(survivor_seller, sends, 'survivor_seller')
         self._validate_survivor_items(survivor_buyer, pickup, 'survivor_buyer')
         self._validate_trade_poins(sends, pickup)
