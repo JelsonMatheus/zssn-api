@@ -1,10 +1,10 @@
-from operator import truediv
 from django import views
 from django.utils.translation import gettext_lazy as _
 from django.db.models import Count, Sum, Q
 from rest_framework import viewsets, mixins, views
 from rest_framework.response import Response
 from rest_framework import permissions
+from django_filters import rest_framework as filters
 
 from api.models import InfectedReport, Survivor, Inventory
 from api.serializers import (
@@ -24,6 +24,8 @@ class IsNotInfected(permissions.BasePermission):
 class SurvivorList(viewsets.ModelViewSet):
     queryset = Survivor.objects.all()
     serializer_class = SurvivorSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ('is_infected',)
     http_method_names = ('get', 'post', 'patch')
 
     def get_serializer_class(self):
