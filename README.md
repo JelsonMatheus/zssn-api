@@ -63,6 +63,7 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
 
 **BASE URL**
 - Localhost: http://127.0.0.1:8000/api/v1
+- API pública: https://zssn-api.herokuapp.com/api/v1
 
 ### Sobreviventes
 | Método | URL                     | Descrição                                  |
@@ -101,15 +102,15 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
 
 ```json
 [
-	{
-		"name": "João",
-		"age": 21,
-		"gender": "M",
-		"is_infected": false,
-		"latitude": "5.000",
-		"longitude": "150.000"
-	},
-    "..."
+   {
+      "name": "João",
+      "age": 21,
+      "gender": "M",
+      "is_infected": false,
+      "latitude": "5.000",
+      "longitude": "150.000"
+   },
+   "..."
 ]
 ```
 
@@ -122,12 +123,12 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
 
 ```json
 {
-    "name": "João",
-    "age": 21,
-    "gender": "M",
-    "is_infected": false,
-    "latitude": "5.000",
-    "longitude": "150.000"
+   "name": "João",
+   "age": 21,
+   "gender": "M",
+   "is_infected": false,
+   "latitude": "5.000",
+   "longitude": "150.000"
 }
 ```
 
@@ -140,10 +141,10 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
 
 ```json
 {
-	"water": 2,
-	"food": 1,
-	"medication": 3,
-	"ammunition": 1
+   "water": 2,
+   "food": 1,
+   "medication": 3,
+   "ammunition": 1
 }
 ```
 
@@ -153,28 +154,28 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
 *Body:*
 ```json
 {
-	"name": "João",
-	"age": "21",
-	"gender": "M",
-	"latitude": 5,
-	"longitude": 10,
-	"inventory": {
-		"water": 2,
-		"food": 1,
-		"medication": 3,
-        "ammunition": 1
-	}
+   "name": "João",
+   "age": "21",
+   "gender": "M",
+   "latitude": 5,
+   "longitude": 10,
+   "inventory": {
+      "water": 2,
+      "food": 1,
+      "medication": 3,
+      "ammunition": 1
+   }
 }
 ```
 Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 ```json
 {
-	"name": "João",
-	"age": "21",
-	"gender": "M",
-	"latitude": 5,
-	"longitude": 10,
-	"inventory": {}
+   "name": "João",
+   "age": "21",
+   "gender": "M",
+   "latitude": 5,
+   "longitude": 10,
+   "inventory": {}
 }
 ```
 
@@ -182,19 +183,19 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 *Status code*: `200 OK`
 ```json
 {
-	"pk": 1,
-	"name": "João",
-	"age": 21,
-	"gender": "M",
-	"is_infected": false,
-	"latitude": "5.000",
-	"longitude": "10.000",
-	"inventory": {
-		"water": 2,
-		"food": 1,
-		"medication": 3,
-		"ammunition": 1
-	}
+   "pk": 1,
+   "name": "João",
+   "age": 21,
+   "gender": "M",
+   "is_infected": false,
+   "latitude": "5.000",
+   "longitude": "10.000",
+   "inventory": {
+      "water": 2,
+      "food": 1,
+      "medication": 3,
+      "ammunition": 1
+   }
 }
 ```
 
@@ -204,16 +205,16 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 *Body:*
 ```json
 {
-	"latitude": 5,
-	"longitude": 150
+   "latitude": 5,
+   "longitude": 150
 }
 ```
 #### Response
 *Status code*: `200 OK`
 ```json
 {
-	"latitude": "5.000",
-	"longitude": "150.000"
+   "latitude": "5.000",
+   "longitude": "150.000"
 }
 ```
 
@@ -223,8 +224,8 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 *Body:*
 ```json
 {
-	"informant": 1, 
-	"infected":  1
+   "informant": 1, 
+   "infected":  1
 }
 ```
 
@@ -235,10 +236,10 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 *Status code*: `200 OK`
 ```json
 {
-	"pk": 4,
-	"informant": 1,
-	"infected": 4,
-	"date_report": "2022-08-07T18:59:01.684164Z"
+   "pk": 4,
+   "informant": 1,
+   "infected": 4,
+   "date_report": "2022-08-07T18:59:01.684164Z"
 }
 ```
 #### <a id="trade"></a> Realiza a troca de itens entre os Sobreviventes
@@ -247,15 +248,15 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 *Body:*
 ```json
 {
-	"survivor_seller": 2,
-	"survivor_buyer": 3,
-	"sends": {
-		"water": 1
-	},
-	"pickup": {
-		"food": 1,
-		"ammunition": 1
-	}
+   "survivor_seller": 2,
+   "survivor_buyer": 3,
+   "sends": {
+      "water": 1
+   },
+   "pickup": {
+      "food": 1,
+      "ammunition": 1
+   }
 }
 ```
 
@@ -269,15 +270,15 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 *Status code*: `200 OK`
 ```json
 {
-	"survivor_seller": 2,
-	"survivor_buyer": 3,
-	"sends": {
-		"water": 1
-	},
-	"pickup": {
-		"food": 1,
-		"ammunition": 1
-	}
+   "survivor_seller": 2,
+   "survivor_buyer": 3,
+   "sends": {
+      "water": 1
+   },
+   "pickup": {
+     "food": 1,
+     "ammunition": 1
+   }
 }
 ```
 
@@ -289,8 +290,8 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 *Status code*: `200 OK`
 ```json
 {
-	"infected": 1,
-	"percentage": "12.5"
+   "infected": 1,
+   "percentage": "12.5"
 }
 ```
 
@@ -302,8 +303,8 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 *Status code*: `200 OK`
 ```json
 {
-	"uninfected": 7,
-	"percentage": 87.5
+   "uninfected": 7,
+   "percentage": 87.5
 }
 ```
 
@@ -315,10 +316,10 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 *Status code*: `200 OK`
 ```json
 {
-	"avg_water": 1.75,
-	"avg_food": 1.25,
-	"avg_medication": 3.0,
-	"avg_ammunition": 1.0
+   "avg_water": 1.75,
+   "avg_food": 1.25,
+   "avg_medication": 3.0,
+   "avg_ammunition": 1.0
 }
 ```
 
@@ -330,7 +331,7 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 *Status code*: `200 OK`
 ```json
 {
-	"lost_points": 6
+   "lost_points": 6
 }
 ```
 
