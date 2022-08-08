@@ -10,7 +10,7 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
 * Django 4.1;
 * Djangorestframework 3.13.1
 
-## :arrow_forward: Começando
+## Começando
 
 ### Pré-requisitos
 * Python3
@@ -35,7 +35,7 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
    Linux: `source venv/bin/active`.\
    Windows: `venv\scripts\activate`.
 
-3. Intalar dependências:
+3. Instalar dependências:
 
     ```bash
     pip3 install -r .requirements.txt
@@ -61,14 +61,15 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
 
 ## Endpoints
 
-### BASE URL
-**Localhost: ** http://127.0.0.1:8000/api/v1
+**BASE URL**
+- Localhost: http://127.0.0.1:8000/api/v1
+
 ### Sobreviventes
 | Método | URL                     | Descrição                                  |
 |--------|-------------------------|--------------------------------------------|
 | GET    | /survivors/             | [Lista todos os Sobreviventes.](#listsurvivors)|
 | GET    | /survivors/:pk/         | [Exibe um Sobrevivente específico.](#onesurvivor)|
-| GET    | /survivors/2/inventory/ | [Lista os itens de um Sobrevivente.](#itemssurvivor)|
+| GET    | /survivors/:pk/inventory/ | [Lista os itens de um Sobrevivente.](#itemssurvivor)|
 | POST   | /survivors/             | [Cria um novo Sobrevivente.](#newsurvivor)|
 | PATCH  | /survivors/:pk/         | [Atualiza o local de um Sobrevivente.](#updatesurvivor)|
 
@@ -90,11 +91,14 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
 | GET    | /reports/avg-resources/ | [Média de recurso por sobrevivente.](#reportavg)|
 | GET    | /reports/lost-points/   | [Pontos perdidos por causa do sobrevivente infectado.](#reportlost)|
 
+# 
+
 #### <a id="listsurvivors"></a> Listar todos os Sobreviventes
-*URL:* `/survivors/`
+*URL:* `/survivors/` <br>
 *Method:* `GET`
 #### Response
-*status_code*: `200`
+*Status code*: `200 OK`
+
 ```json
 [
 	{
@@ -110,10 +114,12 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
 ```
 
 #### <a id="onesurvivor"></a> Exibe um Sobrevivente específico
-*URL:* `/survivors/:pk/inventory/`
+*URL:* `/survivors/:pk/inventory/`<br>
 *Method:* `GET`
+
 #### Response
-*status_code*: `200`
+*Status code*: `200 OK`
+
 ```json
 {
     "name": "João",
@@ -126,10 +132,12 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
 ```
 
 #### <a id="itemssurvivor"></a> Lista os itens de um Sobrevivente
-*URL:* `/survivors/:pk/inventory/`
+*URL:* `/survivors/:pk/inventory/`<br>
 *Method:* `GET`
+
 #### Response
-*status_code*: `200`
+*Status code*: `200 OK`
+
 ```json
 {
 	"water": 2,
@@ -140,7 +148,7 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
 ```
 
 #### <a id="newsurvivor"></a> Cria um novo Sobrevivente
-*URL:* `/survivors/`
+*URL:* `/survivors/`<br>
 *Method:* `POST`
 *Body:*
 ```json
@@ -171,7 +179,7 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 ```
 
 #### Response
-*status_code*: `200`
+*Status code*: `200 OK`
 ```json
 {
 	"pk": 1,
@@ -191,7 +199,7 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 ```
 
 #### <a id="updatesurvivor"></a> Atualiza o local de um Sobrevivente
-*URL:* `/survivors/:pk/`
+*URL:* `/survivors/:pk/`<br>
 *Method:* `PATCH`
 *Body:*
 ```json
@@ -201,7 +209,7 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 }
 ```
 #### Response
-*status_code*: `200`
+*Status code*: `200 OK`
 ```json
 {
 	"latitude": "5.000",
@@ -210,7 +218,7 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 ```
 
 #### <a id="infected"></a> Informa sobre uma nova infecção
-*URL:* `/report-contamination/`
+*URL:* `/report-contamination/`<br>
 *Method:* `POST`
 *Body:*
 ```json
@@ -219,12 +227,12 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 	"infected":  1
 }
 ```
-```JSON
-"informant": Survivor que está informando da contaminação.
-"infected": O suposto Survivor que está infectado.
-```
+
+- **informant:** Survivor que está informando da contaminação.
+- **infected:** O suposto Survivor que está infectado.
+
 #### Response
-*status_code*: `200`
+*Status code*: `200 OK`
 ```json
 {
 	"pk": 4,
@@ -234,7 +242,7 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 }
 ```
 #### <a id="trade"></a> Realiza a troca de itens entre os Sobreviventes
-*URL:* `/report-contamination/`
+*URL:* `/trades/`<br>
 *Method:* `POST`
 *Body:*
 ```json
@@ -250,14 +258,15 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 	}
 }
 ```
-```JSON
-"survivor_seller": Survivor que esta oferecendo os itens.
-"sends": Os itens que estão sendo oferecidos para o 'survivor_buyer'.
-"survivor_buyer": O Survivor que está comprando os itens.
-"pickup": Os itens que estão sendo oferecido para o 'survivor_seller'.
-```
+
+- **survivor_seller:** Survivor que esta oferecendo os itens.
+- **sends:** Os itens que estão sendo oferecidos para o 'survivor_buyer'.
+- **survivor_buyer:** O Survivor que está comprando os itens.
+- **pickup:** Os itens que estão sendo oferecido para o 'survivor_seller'.
+
+
 #### Response
-*status_code*: `200`
+*Status code*: `200 OK`
 ```json
 {
 	"survivor_seller": 2,
@@ -273,10 +282,11 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 ```
 
 #### <a id="reportinfected"></a> Porcentagem de sobreviventes infectados
-*URL:* `/reports/infected/`
+*URL:* `/reports/infected/`<br>
 *Method:* `GET`
+
 #### Response
-*status_code*: `200`
+*Status code*: `200 OK`
 ```json
 {
 	"infected": 1,
@@ -285,10 +295,11 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 ```
 
 #### <a id="reportuninfected"></a> Porcentagem de sobreviventes não infectados
-*URL:* `/reports/uninfected/`
+*URL:* `/reports/uninfected/`<br>
 *Method:* `GET`
+
 #### Response
-*status_code*: `200`
+*Status code*: `200 OK`
 ```json
 {
 	"uninfected": 7,
@@ -297,10 +308,11 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 ```
 
 #### <a id="reportavg"></a> Média de recurso por sobrevivente
-*URL:* `/reports/avg-resources/`
+*URL:* `/reports/avg-resources/`<br>
 *Method:* `GET`
+
 #### Response
-*status_code*: `200`
+*Status code*: `200 OK`
 ```json
 {
 	"avg_water": 1.75,
@@ -309,11 +321,13 @@ Para criar um Sobrevivente com nenhum recurso (consulte a tabela de itens):
 	"avg_ammunition": 1.0
 }
 ```
+
 #### <a id="reportlost"></a> Pontos perdidos por causa do sobrevivente infectado
-*URL:* `/reports/lost-points/`
+*URL:* `/reports/lost-points/`<br>
 *Method:* `GET`
+
 #### Response
-*status_code*: `200`
+*Status code*: `200 OK`
 ```json
 {
 	"lost_points": 6
@@ -332,3 +346,5 @@ A comercialização dos itens deve respeitar a tabela de preços abaixo, onde o 
 
 ## Diagrama Entidade Relacionamento - DER
 Representação da estrutura do banco de dados utilizada no projeto.
+
+![ZSSN DATABASE](https://user-images.githubusercontent.com/58706567/183316413-de30da7f-a92f-46cb-8767-56e9442ad621.png)
