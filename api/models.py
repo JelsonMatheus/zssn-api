@@ -45,7 +45,7 @@ class Inventory(models.Model):
 
     @property
     def total_resource_value(self):
-        item_names = ('water', 'food', 'medication', 'ammunition')
+        item_names = [label.lower() for label in self.ItemValue.labels]
         value = 0
         for name in item_names:
             value += self.get_full_value_item(name)

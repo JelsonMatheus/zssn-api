@@ -100,7 +100,11 @@ class UninfectedReportsView(views.APIView):
     def get(self, request, *args, **kwargs):
         uninfected = Count('pk', filter=Q(is_infected=False))
         query = self.queryset.aggregate(total=Count('pk'), uninfected=uninfected)
-        value = query['uninfected'] / query['total']
+        value = 0
+
+        if query['total'] > 0:
+            value = query['uninfected'] / query['total']
+
         data = {
             'uninfected': query['uninfected'],
             'percentage': value * 100
@@ -125,8 +129,9 @@ class AverageResourcesView(views.APIView):
         total = query.pop('total_survivor')
         data = {}
         for key, value in query.items():
+            value = value or 0
             label = f"avg_{key}"
-            data[label] = value / total
+            data[label] = (value / total) if total > 0 else 0
         return Response(data)
 
 
@@ -145,7 +150,10 @@ class LostPointsView(views.APIView):
 
     def get(self, request, *args, **kwargs):
         query = self.get_queryset(*args, **kwargs)
+        total = 0
+        for key, value in query.items():
+            total += (value or 0) * Inventory.ItemValue[key.upper()]
         data = {
-            'lost_points': sum(query.values())
+            'lost_points': total
         }
         return Response(data)
