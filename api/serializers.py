@@ -27,7 +27,7 @@ class CreateSurvivorSerializer(serializers.ModelSerializer):
 class SurvivorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Survivor
-        fields = ('name', 'age', 'gender', 'is_infected', 'latitude', 'longitude')
+        fields = ('pk', 'name', 'age', 'gender', 'is_infected', 'latitude', 'longitude')
 
 class UpdateSurvivorSerializer(serializers.ModelSerializer):
     class Meta:
