@@ -123,6 +123,7 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
 
 ```json
 {
+   "pk": 1,
    "name": "João",
    "age": 21,
    "gender": "M",
