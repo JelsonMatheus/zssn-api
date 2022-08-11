@@ -4,7 +4,8 @@ from django.db.models import Count, Sum, Q
 from rest_framework import viewsets, mixins, views
 from rest_framework.response import Response
 from rest_framework import permissions
-from django_filters import rest_framework as filters
+from rest_framework.filters import OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 from api.models import InfectedReport, Survivor, Inventory
 from api.serializers import (
@@ -30,11 +31,11 @@ class SurvivorList(viewsets.ModelViewSet):
     """
     queryset = Survivor.objects.all()
     serializer_class = SurvivorSerializer
-    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter)
-    filterset_fields = ['is_infected']
-    ordering_fields = ['name']
-    ordering = ['name']
-    http_method_names = ['get', 'post', 'patch']
+    filter_backends = (DjangoFilterBackend, OrderingFilter)
+    filterset_fields = ('is_infected',)
+    ordering_fields = ('name',)
+    ordering = ('name',)
+    http_method_names = ('get', 'post', 'patch')
 
     def get_serializer_class(self):
         if self.action in ('update', 'partial_update'):
