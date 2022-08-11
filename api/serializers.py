@@ -24,15 +24,18 @@ class CreateSurvivorSerializer(serializers.ModelSerializer):
         inventory = Inventory.objects.create(survivor=survivor, **inventory_data)
         return survivor
 
+
 class SurvivorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Survivor
         fields = ('name', 'age', 'gender', 'is_infected', 'latitude', 'longitude')
 
+
 class UpdateSurvivorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Survivor
         fields = ('latitude', 'longitude')
+
 
 class InfectedReportSerializer(serializers.ModelSerializer):
     class Meta:

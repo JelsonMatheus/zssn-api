@@ -32,6 +32,8 @@ class SurvivorList(viewsets.ModelViewSet):
     serializer_class = SurvivorSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ('is_infected',)
+    ordering_fields = ('name,')
+    ordering = ('name,')
     http_method_names = ('get', 'post', 'patch')
 
     def get_serializer_class(self):
