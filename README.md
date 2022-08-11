@@ -19,7 +19,7 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
 
 1. Clonando o projeto para a sua máquina:
     ```bash
-    git clone https://github.com/JelsonMatheus/rdjsite.git
+    https://github.com/JelsonMatheus/zssn-api.git
     ```
 
 2. Renomear o arquivo que contem as variáveis de ambiente `.env.example` para `.env`.
