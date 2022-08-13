@@ -115,7 +115,7 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
 ```
 
 #### <a id="onesurvivor"></a> Exibe um Sobrevivente específico
-*URL:* `/survivors/:pk/inventory/`<br>
+*URL:* `/survivors/:pk/`<br>
 *Method:* `GET`
 
 #### Response
