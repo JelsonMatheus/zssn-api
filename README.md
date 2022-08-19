@@ -63,7 +63,6 @@ Você, como membro da resistência aos zumbis (e o último sobrevivente que sabe
 
 **BASE URL**
 - Localhost: http://127.0.0.1:8000/api/v1
-- API pública: https://zssn-api.herokuapp.com/api/v1
 
 ### Sobreviventes
 | Método | URL                     | Descrição                                  |
